@@ -40,7 +40,6 @@ class CreateMovie():
 
         clips = []
         sub = VideoFileClip("source/clip/baddie.mp4")
-
         for post in post_data:
             print("CreateMovie", post['image_path'])
             clip = VideoFileClip(post['image_path'])
@@ -48,7 +47,6 @@ class CreateMovie():
             # clip = concatenate_videoclips(clip_lengthener)
             # clip = clip.subclip(0,12)
             clips.append(clip)
-        clips.insert(1,sub)
         
         # After we have out clip.
         # print("flagg")

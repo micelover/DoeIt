@@ -25,6 +25,17 @@ class RedditBot():
         self.data_path = os.path.join(dir_path, "data/")
         self.post_data = []
         self.already_posted = []
+        today = date.today()
+        dt_string = today.strftime("%m%d%Y")
+        data_folder_path = os.path.join(self.data_path, f"{dt_string}/")
+
+        check_folder = os.path.isdir(data_folder_path)
+
+        if os.path.isdir(self.data_path):
+            shutil.rmtree(self.data_path)
+        
+        os.makedirs(data_folder_path)
+        os.makedirs(f"{self.data_path}unedit/")
 
         #   Check for a posted_already.json file
         self.posted_already_path = os.path.join(
@@ -38,7 +49,7 @@ class RedditBot():
         self.post_data = []
         subreddit = self.reddit.subreddit(sub)
         posts = []
-        for submission in subreddit.top("day", limit=100):
+        for submission in subreddit.top("all", limit=100):
             if submission.stickied:
                 print("Mod Post")
             else:
@@ -71,7 +82,7 @@ class RedditBot():
                 data_folder_path = os.path.join(self.data_path, f"{dt_string}/")
                 CHECK_FOLDER = os.path.isdir(data_folder_path)
                 # CHECK_FOLDER = os.path.isdir(self.data_path)
-                if CHECK_FOLDER and len(self.post_data) < 41 and not submission.over_18 and submission.id not in self.already_posted:
+                if CHECK_FOLDER and len(self.post_data) < 35 and not submission.over_18 and submission.id not in self.already_posted:
                     print("RedditBot2", len(self.post_data))
                     # Get the image and write the path
 
